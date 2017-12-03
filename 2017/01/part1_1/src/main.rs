@@ -11,12 +11,10 @@ fn main() {
 }
 
 fn sum_if_repeated(v: Vec<u32>) -> u32 {
-    let shift = 1;
-    let shifted_it = v.iter().skip(v.len() - shift).chain(v.iter().take(shift));
-
-    for (a, b) in v.iter().zip(shifted_it) {
-        
-    }
-
-    1
+    let shift = v.len() / 2;
+    v.iter()
+        .zip(v[shift..].iter().chain(v[..shift].iter()))
+        .filter(|&(a, b)| a == b)
+        .map(|(a, _)| a)
+        .sum()
 }
