@@ -5,9 +5,12 @@
 #include <vector>
 
 int main() {
-    auto ss = std::string{};
-    std::cin >> ss;
-    const auto input = std::vector<char>{ss.cbegin(), ss.cend()};
+    const auto input = std::vector<char>(std::istreambuf_iterator<char>{std::cin}, {});
+
+    //auto ss = std::string{};
+    //std::cin >> ss;
+    //const auto input = std::vector<char>{ss.cbegin(), ss.cend()};
+
 
     const auto shift = input.size() / 2;
     auto shifted_input = std::vector<char>{};
