@@ -1,0 +1,7 @@
+[package]
+name = "part2"
+version = "0.1.0"
+authors = ["CallumHoward <callumh@cse.unsw.edu.au>"]
+
+[dependencies]
+itertools = "0.7.4"
