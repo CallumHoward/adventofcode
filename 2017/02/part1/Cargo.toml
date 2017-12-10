@@ -1,0 +1,6 @@
+[package]
+name = "part1"
+version = "0.1.0"
+authors = ["CallumHoward <callumh@cse.unsw.edu.au>"]
+
+[dependencies]
