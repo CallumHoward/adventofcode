@@ -1,3 +1,7 @@
+// 01/part1.cpp
+// http://adventofcode.com/2017/day/1
+// Callum Howard, 2017
+
 #include <algorithm>    // rotate_copy, transform
 #include <iostream>
 #include <iterator>     // istringstream
@@ -10,7 +14,6 @@ int main() {
     //auto ss = std::string{};
     //std::cin >> ss;
     //const auto input = std::vector<char>{ss.cbegin(), ss.cend()};
-
 
     const auto shift = input.size() / 2;
     auto shifted_input = std::vector<char>{};

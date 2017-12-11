@@ -1,3 +1,7 @@
+// 02/part2/main.rs
+// http://adventofcode.com/2017/day/2
+// Callum Howard, 2017
+
 extern crate itertools;
 
 use itertools::Itertools;

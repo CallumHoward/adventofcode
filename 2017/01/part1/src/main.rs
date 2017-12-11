@@ -1,3 +1,7 @@
+// 01/part1/main.rs
+// http://adventofcode.com/2017/day/1
+// Callum Howard, 2017
+
 fn main() {
     let mut input = String::new();
     std::io::stdin().read_line(&mut input).expect("read error");

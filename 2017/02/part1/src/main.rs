@@ -1,3 +1,7 @@
+// 02/part1/main.rs
+// http://adventofcode.com/2017/day/2
+// Callum Howard, 2017
+
 use std::io::{stdin, BufRead};
 
 fn main() {

@@ -1,3 +1,7 @@
+// 01/part2/main.rs
+// http://adventofcode.com/2017/day/1
+// Callum Howard, 2017
+
 fn main() {
 
     let mut input = String::new();
@@ -19,6 +23,6 @@ fn sum_if_repeated(v: Vec<u32>) -> u32 {
             sum += v[i];
         }
     }
-    
+
     sum
 }
