@@ -1,9 +1,16 @@
-// Advnet of Code day 3
+// Advent of Code day 3
 
 struct Point {
     x: i32, // 10km
     y: i32,
 }
+
+impl PartialEq for Point {
+    fn eq(&self, rhs: &Point) -> bool {
+        self.x == rhs.x && self.y == rhs.y
+    }
+}
+impl Eq for Point {}
 
 struct Direction {
     x: i32, // 30deg
@@ -19,14 +26,28 @@ struct Cardinality {
 
 
 fn go(p: Point, d: Direction) -> Point {
-    return Point {x: p.x + d.x, y: p.y + d.y};
+    Point{
+        x: p.x + d.x,
+        y: p.y + d.y
+    }
 }
 
-fn next_odd_square(input: i32) -> i32 {
+fn prev_odd_square(input: i32) -> i32 {
     let n = (input as f32)
         .sqrt()
         .floor() as i32;
-    if is_even(n) { n + 1 } else { n + 2 }
+    if is_even(n) {
+        n - 1
+    } else {
+        n
+    }
+}
+
+fn find_diagonal(square: i32) -> Point {
+    Point{
+        x: square / 2,
+        y: square / 2
+    }
 }
 
 fn is_even(n: i32) -> bool {
@@ -44,8 +65,17 @@ fn main() {
     let p = Point{x: 0, y: 0};
     let p = go(p, card.e);
 
-    //println!("{}, {}", p.x, p.y);
-
-
+    for () {
+        if false { break; }
+    }
+    for () {
+        if false { break; }
+    }
+    for () {
+        if false { break; }
+    }
+    for () {
+        if false { break; }
+    }
 
 }
