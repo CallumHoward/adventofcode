@@ -7,51 +7,52 @@ use std::collections::HashMap;
 
 type Point = (i32, i32);
 
+// directions
+const N: Point = (0, -1);
+const NW: Point = (-1, -1);
+const S: Point = (0, 1);
+const SE: Point = (1, 1);
+const E: Point = (1, 0);
+const NE: Point = (1, -1);
+const W: Point = (-1, 0);
+const SW: Point = (-1, 1);
+const ALL_DIRECTIONS: [Point; 8] = [N, NW, S, SE, E, NE, W, SW];
+
+fn spiral(square_root: i32) -> [(Point, i32); 5] {
+    [
+        (E, 1),
+        (N, square_root),
+        (W, square_root + 1),
+        (S, square_root + 1),
+        (E, square_root + 1),
+    ]
+}
+
 fn go(point: Point, direction: Point) -> Point {
     (point.0 + direction.0, point.1 + direction.1)
 }
 
-fn adjacent(point: Point, all_directions: &Vec<Point>) -> Vec<Point> {
-    all_directions.iter().map(|&direction| go(point, direction)).collect()
+fn adjacent(point: Point) -> Vec<Point> {
+    ALL_DIRECTIONS.iter()
+        .map(|&direction| go(point, direction))
+        .collect()
+}
+
+fn is_odd(n: i32) -> bool {
+    n % 2 == 1
 }
 
 fn solve(target: i32) -> i32 {
-    // directions
-    let n = (0, -1);
-    let nw = (-1, -1);
-    let s = (0, 1);
-    let se = (1, 1);
-    let e = (1, 0);
-    let ne = (1, -1);
-    let w = (-1, 0);
-    let sw = (-1, 1);
-    let all_directions = vec![n, nw, s, se, e, ne, w, sw];
-
-    let value = 1;
-    let mut sroot = 1;
     let mut point = (0, 0);
     let mut values = HashMap::new();
-    values.insert(point, value);
+    values.insert(point, 1);
 
-    if value > target {
-        return value;
-    }
-
-    loop {
-        let spiral = [
-            (e, 1),
-            (n, sroot),
-            (w, sroot + 1),
-            (s, sroot + 1),
-            (e, sroot + 1),
-        ];
-
-        for &(direction, distance) in spiral.iter() {
-
+    for square_root in (1..).filter(|&x| is_odd(x)) {
+        for &(direction, distance) in spiral(square_root).iter() {
             for _ in 0..distance {
                 point = go(point, direction);
 
-                let value = adjacent(point, &all_directions).iter()
+                let value = adjacent(point).iter()
                     .filter_map(|adjacent_point| values.get(adjacent_point))
                     .sum();
                 values.insert(point, value);
@@ -61,10 +62,9 @@ fn solve(target: i32) -> i32 {
                 }
             }
         }
-
-        sroot += 2;
     }
 
+    0
 }
 
 fn main() {
