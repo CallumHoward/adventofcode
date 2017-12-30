@@ -1,5 +1,7 @@
-# part1.py
+# 06/part1.py
+# http://adventofcode.com/2017/day/6
 # Callum Howard, 2017
+
 
 from itertools import count
 
