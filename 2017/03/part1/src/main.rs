@@ -1,5 +1,7 @@
 // Advent of Code day 3
 
+use std::io::stdin;
+
 struct Point {
     x: i32, // 10km
     y: i32,
@@ -25,28 +27,22 @@ struct Cardinality {
 }
 
 
-fn go(p: Point, d: Direction) -> Point {
-    Point{
+fn go(p: &Point, d: &Direction) -> Point {
+    Point {
         x: p.x + d.x,
-        y: p.y + d.y
+        y: p.y + d.y,
     }
 }
 
 fn prev_odd_square(input: i32) -> i32 {
-    let n = (input as f32)
-        .sqrt()
-        .floor() as i32;
-    if is_even(n) {
-        n - 1
-    } else {
-        n
-    }
+    let n = (input as f32).sqrt().floor() as i32;
+    if is_even(n) { n - 1 } else { n }
 }
 
-fn find_diagonal(square: i32) -> Point {
-    Point{
-        x: square / 2,
-        y: square / 2
+fn find_diagonal(square_root: i32) -> Point {
+    Point {
+        x: square_root / 2,
+        y: square_root / 2,
     }
 }
 
@@ -54,28 +50,53 @@ fn is_even(n: i32) -> bool {
     n % 2 == 0
 }
 
-fn main() {
+fn manhattan(point: Point) -> i32 {
+    point.x.abs() + point.y.abs()
+}
+
+fn solve(target: i32) -> i32 {
     let card = Cardinality {
-        n: Direction{x: 0,  y: 1},
-        s: Direction{x: 0,  y:-1},
-        e: Direction{x: 1,  y: 0},
-        w: Direction{x:-1,  y: 0},
+        n: Direction { x: 0, y: -1 },
+        s: Direction { x: 0, y: 1 },
+        e: Direction { x: 1, y: 0 },
+        w: Direction { x: -1, y: 0 },
     };
 
-    let p = Point{x: 0, y: 0};
-    let p = go(p, card.e);
+    let square_root = prev_odd_square(target);
+    let mut destination = find_diagonal(square_root);
+    let mut index = square_root * square_root;
 
-    for () {
-        if false { break; }
-    }
-    for () {
-        if false { break; }
-    }
-    for () {
-        if false { break; }
-    }
-    for () {
-        if false { break; }
+    for &(direction, distance) in
+        [
+            (&card.e, 1),
+            (&card.n, square_root),
+            (&card.w, square_root + 1),
+            (&card.s, square_root + 1),
+            (&card.e, square_root + 1),
+        ].iter()
+    {
+        for _ in 0..distance {
+            if index == target {
+                return manhattan(destination);
+            }
+            destination = go(&destination, &direction);
+            index += 1;
+        }
     }
 
+    manhattan(destination)
+
+
+}
+
+fn main() {
+    let mut input = String::new();
+
+    stdin().read_line(&mut input)
+        .expect("failed to read line");
+
+    let input: i32 = input.trim().parse()
+        .expect("Please type a number!");
+
+    println!("{}", solve(input));
 }

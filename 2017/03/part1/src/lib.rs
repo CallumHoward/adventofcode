@@ -1,6 +1,6 @@
 #[cfg(test)]
 mod tests {
-    #[test]
+    //#[test]
     //fn test_find_diagonal() {
     //    let p = find_diagonal(prev_odd_square(11));
     //    assert!(p == Point{
