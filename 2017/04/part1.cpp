@@ -7,10 +7,12 @@
 #include <set>
 #include <sstream>      // istringstream
 #include <string>       // getline
+#include <string_view>
 #include <vector>
 
-std::vector<std::string> split(const std::string& input);
-bool no_duplicates(const std::string& line);
+//std::vector<std::string> split(const std::string& input);
+std::vector<std::string_view> split(std::string_view input);
+bool no_duplicates(std::string_view line);
 void test_no_duplicates();
 
 int main() {
@@ -19,7 +21,7 @@ int main() {
     auto result = 0;
 
     for (auto line = std::string{}; std::getline(std::cin, line);) {
-        if (no_duplicates(line)) { ++result; }
+        if (no_duplicates(line.data())) { ++result; }
     }
 
     std::cout << result << '\n';
@@ -27,26 +29,35 @@ int main() {
     return 0;
 }
 
-std::vector<std::string> split(const std::string& input) {
-    auto iss = std::istringstream{input};
+std::vector<std::string_view> split(const std::string_view input) {
+    auto results = std::vector<std::string_view>{};
 
-    return std::vector<std::string>{std::istream_iterator<std::string>{iss},
-            std::istream_iterator<std::string>{}};
+    auto j = std::cbegin(input);
+    for (auto i = j; i != std::cend(input); ++i) {
+        if (*i == ' ') {
+            results.emplace_back(&*j, std::distance(j, i));
+            j = std::next(i);
+        }
+    }
+
+    results.emplace_back(&*j, std::distance(j, std::cend(input)));
+
+    return results;
 }
 
-bool no_duplicates(const std::string& line) {
-    auto words = std::set<std::string>();
+bool no_duplicates(const std::string_view line) {
+    auto words = std::set<std::string_view>();
 
-    for (const auto& word : split(line)) {
-        if (words.find(word) != std::cend(words)) { return false; }
-        words.insert(word);
+    for (const auto word : split(line)) {
+        if (not words.insert(word).second) { return false; }
     }
 
     return true;
 }
 
 void test_no_duplicates() {
-    assert(no_duplicates("aa bb cc dd ee"));
-    assert(not no_duplicates("aa bb cc dd aa"));
-    assert(no_duplicates("aa bb cc dd aaa"));
+    using namespace std::string_view_literals;
+    assert(no_duplicates("aa bb cc dd ee"sv));
+    assert(not no_duplicates("aa bb cc dd aa"sv));
+    assert(no_duplicates("aa bb cc dd aaa"sv));
 }
