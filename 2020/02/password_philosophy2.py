@@ -11,6 +11,6 @@ def solve(line):
 
 def solve2(line):
     pos1, pos2, letter, password = re.match(r'(\d+)-(\d+)\s([a-z]):\s(\w+)', line).groups()
-    return sum((password[int(pos1) - 1] == letter, password[int(pos2) - 1] == letter)) == 1
+    return (password[int(pos1) - 1] == letter) ^ (password[int(pos2) - 1] == letter)
 
 print(sum(solve2(line) for line in stdin.readlines()))
