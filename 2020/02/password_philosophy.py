@@ -10,7 +10,7 @@ def solve(line):
     return min <= sum(l == letter[0] for l in password) <= max
 
 def solve2(line):
-    min, max, letter, password = re.match(r'(\d+)-(\d+)\s([a-z]):\s(\w+)', line).groups()
+    min, max, letter, password = re.match(r'(\d+)-(\d+)\s([\w+]):\s(\w+)', line).groups()
     return int(min) <= sum(l == letter for l in password) <= int(max)
 
 print(sum(solve2(line) for line in stdin.readlines()))
