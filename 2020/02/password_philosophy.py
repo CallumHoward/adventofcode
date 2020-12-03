@@ -7,8 +7,7 @@ import re
 def solve(line):
     range, letter, password = line.split()
     min, max = map(int, range.split('-'))
-    count = sum(l == letter[0] for l in password)
-    return min <= count <= max
+    return min <= sum(l == letter[0] for l in password) <= max
 
 def solve2(line):
     min, max, letter, password = re.match(r'(\d+)-(\d+)\s([a-z]):\s(\w+)', line).groups()
