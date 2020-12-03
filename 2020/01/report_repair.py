@@ -11,4 +11,4 @@ def solve2(nums, target):
 def solve(nums, target):
     return next(n * (target - n) for n in nums if target - n in nums)
 
-print(solve(set([int(n) for n in sys.stdin.readlines()]), 2020))
+print(solve(set(map(int, sys.stdin.readlines())), 2020))
