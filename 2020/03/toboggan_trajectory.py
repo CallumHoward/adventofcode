@@ -32,8 +32,8 @@ def solve(right=3, down=1):
     return count
 
 def solve2(right=3, down=1):
-    return sum(1 for c, r in enumerate(range(0, len(input), down))
-            if (r, c * right % len(input[0].strip())) in trees and r != 0)
+    return sum((r, c * right % len(input[0].strip())) in trees and r != 0
+            for c, r in enumerate(range(0, len(input), down)))
 
 # print(solve2())
 
