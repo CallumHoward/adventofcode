@@ -17,6 +17,4 @@ def rating(lines, default: str, anti = False):
 lines = [line.strip() for line in stdin.readlines()]
 ox = rating(lines, "1")
 co2 = rating(lines, "0", anti=True)
-print(int("".join(ox), 2))
-print(int("".join(co2), 2))
 print(int("".join(ox), 2) * int("".join(co2), 2))
